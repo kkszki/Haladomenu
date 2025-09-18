@@ -9,15 +9,16 @@ namespace Haladomenu
     internal class Program
     {
 
-
+        static string nev = "";
+        static int szulEv = 0;
+        static bool ffi = true;
+        static double magassag = 1.7803;
 
         static void Main()
         {
-            string nev = "";
-            int szulEv = 0;
-            bool ffi = true;
+            
             int currentPoint = 0;
-            double magassag = 1.7803;
+           
             do
             {
                 bool selected = false;
@@ -57,44 +58,13 @@ namespace Haladomenu
                 } while (!selected);
 
                 switch (currentPoint)
-                {
+                {   
                     case 0:  //adatbekérés
-                        Console.Clear();
-                        Console.Beep();
-                        Console.WriteLine("Kérem adja meg a nevét: ");
-                        nev = Console.ReadLine();
-                        bool  good = false;
-                        do {
-                            try
-                            {
-                                Console.WriteLine("Kérem adja meg a születési évét: ");
-                                string SzulStr = Console.ReadLine();
-                                szulEv = Convert.ToInt32(SzulStr);
-                                good = true;
-                            }
-                            catch (Exception ex) {
-                                Console.WriteLine("Számmal adja meg");
-                            } 
-                        }while (!good);
-
-                        Console.WriteLine("Kérem adja meg, hogy férfi-e: (i/n)");
-                        ffi = Console.ReadLine().ToLower() == "i";
-                        Console.WriteLine("Az adatokat sikeresen rögzítettük enterre tovább");
-
-                       
-                        Console.ReadLine(); 
+                        InputData();
                         break;
 
                     case 1:  // adatkiírás
-                        Console.Clear();
-                        Console.WriteLine("adatai:");
-                        Console.WriteLine($"A neve: {nev}");
-                        Console.WriteLine($"Születési éve: {szulEv}");
-                        Console.WriteLine($"Neme: {(ffi ? "Férfi" : "Nő")}");
-                        Console.WriteLine($"Magasság: {magassag:F2} m");
-                        Console.WriteLine("Enterre tovább");
-
-                        Console.ReadLine();
+                        ShowData();
                         break;
 
                     case 2:  //kilépés
@@ -110,6 +80,47 @@ namespace Haladomenu
                 }
             } while (currentPoint!=2);
 
+        }
+        static void ShowData()
+        {
+            Console.Clear();
+            Console.WriteLine("adatai:");
+            Console.WriteLine($"A neve: {nev}");
+            Console.WriteLine($"Születési éve: {szulEv}");
+            Console.WriteLine($"Neme: {(ffi ? "Férfi" : "Nő")}");
+            Console.WriteLine($"Magasság: {magassag:F2} m");
+            Console.WriteLine("Enterre tovább");
+
+            Console.ReadLine();
+        }
+        static void InputData()
+        {
+            Console.Clear();
+            Console.Beep();
+            Console.WriteLine("Kérem adja meg a nevét: ");
+            nev = Console.ReadLine();
+            bool good = false;
+            do
+            {
+                try
+                {
+                    Console.WriteLine("Kérem adja meg a születési évét: ");
+                    string SzulStr = Console.ReadLine();
+                    szulEv = Convert.ToInt32(SzulStr);
+                    good = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Számmal adja meg");
+                }
+            } while (!good);
+
+            Console.WriteLine("Kérem adja meg, hogy férfi-e: (i/n)");
+            ffi = Console.ReadLine().ToLower() == "i";
+            Console.WriteLine("Az adatokat sikeresen rögzítettük enterre tovább");
+
+
+            Console.ReadLine();
         }
 
         static void ShowMenu(int cPoint)
